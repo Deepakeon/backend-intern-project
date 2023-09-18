@@ -6,6 +6,10 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "prisma:dev:migrate": "npx prisma migrate deploy",
+    "db:dev:start": "docker compose up weather-report-dev -d",
+    "db:dev:stop": "docker compose rm weather-report-dev -s -f -v",
+    "db:dev:restart": "npm run db:dev:stop && npm run db:dev:start && sleep 1 && npm run prisma:dev:migrate",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
