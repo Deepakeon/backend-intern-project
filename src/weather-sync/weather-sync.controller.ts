@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { WeatherSyncService } from './weather-sync.service';
 import { GetWeatherSyncFilterDto, WeatherSyncDto } from './dto';
-import { WeatherSyncDeltaParamsDto } from './dto/get-weather-sync-delta.dto';
+import { WeatherSyncDeltaParamsDto } from './dto';
 
 @Controller('weather-sync')
 export class WeatherSyncController {

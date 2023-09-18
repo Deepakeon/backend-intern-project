@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { WeatherSync } from '@prisma/client';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GetWeatherSyncFilterDto, WeatherSyncDto } from './dto';
-import { WeatherSyncDeltaParamsDto } from './dto/get-weather-sync-delta.dto';
-import { WeatherSync } from '@prisma/client';
+import { WeatherSyncDeltaParamsDto } from './dto';
 
 @Injectable()
 export class WeatherSyncService {
