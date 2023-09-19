@@ -56,8 +56,8 @@ export class WeatherSyncService {
         })
     }
 
-    async getWeatherSyncDelta(weatherSyncParams: GetWeatherSyncDeltaParamsDto) {
-        const { areaCode, fromClimate, toClimate } = weatherSyncParams
+    async getWeatherSyncDelta(weatherSyncParamsDto: GetWeatherSyncDeltaParamsDto) {
+        const { areaCode, fromClimate, toClimate } = weatherSyncParamsDto
         const records = await this.prisma.weatherSyncRecord.findMany({
             where: {
                 areaCode,

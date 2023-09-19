@@ -21,7 +21,7 @@ export class WeatherSyncController {
 
     @Get('delta')
     @HttpCode(HttpStatus.OK)
-    getWeatherSyncDelta(@Query() weatherSyncDeltaParams: GetWeatherSyncDeltaParamsDto) {
-        return this.weatherSyncService.getWeatherSyncDelta(weatherSyncDeltaParams)
+    getWeatherSyncDelta(@Query() weatherSyncParamsDto: GetWeatherSyncDeltaParamsDto) {
+        return this.weatherSyncService.getWeatherSyncDelta(weatherSyncParamsDto)
     }
 }
