@@ -1,8 +1,14 @@
+import { ApiProperty } from "@nestjs/swagger"
 import { Climate } from "@prisma/client"
-import { IsEnum, IsInt, IsNumber, Max, Min } from "class-validator"
+import { IsEnum, IsInt, IsNumber, IsString, Max, Min } from "class-validator"
 
 export class WeatherSyncDto {
 
+    @ApiProperty({
+        enum: Climate,
+        example: Climate.COLD,
+        description: 'The climate of the weather sync record'
+    })
     @IsEnum(Climate)
     climate: Climate
 
@@ -11,13 +17,13 @@ export class WeatherSyncDto {
     @Max(1000)
     areaCode: number
 
-    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsNumber()
     temperature: number
 
-    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsNumber()
     humidity: number
 
-    @IsNumber({ maxDecimalPlaces: 2 })
+    @IsNumber()
     @Min(0)
     @Max(100)
     chancesOfRain: number
