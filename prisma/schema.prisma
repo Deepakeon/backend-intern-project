@@ -17,11 +17,14 @@ enum Climate {
   COLD
 }
 
-model WeatherSync{
+model WeatherSyncRecord{
   id Int @id @default(autoincrement())
   climate Climate
   areaCode Int
   temperature Float
   humidity Float
   chancesOfRain Float
+  createdAt DateTime @default(now())
+
+  @@map("weather_sync_records")
 }

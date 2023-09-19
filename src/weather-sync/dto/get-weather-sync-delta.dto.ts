@@ -5,7 +5,7 @@ import { IsEnum, IsInt, Max, Min } from "class-validator";
 
 import { IsNotEqualsTo } from "src/common/validators";
 
-export class WeatherSyncDeltaParamsDto {
+export class GetWeatherSyncDeltaParamsDto {
 
     @ApiProperty({
         enum: Climate,

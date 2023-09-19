@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@nestj
 
 import { WeatherSyncService } from './weather-sync.service';
 import { GetWeatherSyncFilterDto, WeatherSyncDto } from './dto';
-import { WeatherSyncDeltaParamsDto } from './dto';
+import { GetWeatherSyncDeltaParamsDto } from './dto';
 
 @Controller('weather-sync')
 export class WeatherSyncController {
@@ -21,7 +21,7 @@ export class WeatherSyncController {
 
     @Get('delta')
     @HttpCode(HttpStatus.OK)
-    getWeatherSyncDelta(@Query() weatherSyncDeltaParams: WeatherSyncDeltaParamsDto) {
+    getWeatherSyncDelta(@Query() weatherSyncDeltaParams: GetWeatherSyncDeltaParamsDto) {
         return this.weatherSyncService.getWeatherSyncDelta(weatherSyncDeltaParams)
     }
 }

@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { WeatherSync } from '@prisma/client';
+import { WeatherSyncRecord } from '@prisma/client';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GetWeatherSyncFilterDto, WeatherSyncDto } from './dto';
-import { WeatherSyncDeltaParamsDto } from './dto';
+import { GetWeatherSyncDeltaParamsDto } from './dto';
 
 @Injectable()
 export class WeatherSyncService {
@@ -13,7 +13,7 @@ export class WeatherSyncService {
         return (temperatureDelta * humidityDelta) / chancesOfRainDelta
     }
 
-    calculateWeatherSyncDelta(fromClimate: string, toClimate: string, records: WeatherSync[]) {
+    calculateWeatherSyncDelta(fromClimate: string, toClimate: string, records: WeatherSyncRecord[]) {
         let temperatureSum = [0, 0], humiditySum = [0, 0], chancesOfRainSum = [0, 0]
 
         records.forEach(record => {
@@ -36,7 +36,7 @@ export class WeatherSyncService {
     }
 
     async add(dto: WeatherSyncDto) {
-        const weather = await this.prisma.weatherSync.create({
+        const weather = await this.prisma.weatherSyncRecord.create({
             data: dto
         })
 
@@ -45,7 +45,7 @@ export class WeatherSyncService {
 
     async getWeatherSyncRecords(filterDto: GetWeatherSyncFilterDto) {
         const { areaCode, climate, temperature, humidity, chancesOfRain } = filterDto
-        return await this.prisma.weatherSync.findMany({
+        return await this.prisma.weatherSyncRecord.findMany({
             where: {
                 areaCode,
                 climate,
@@ -56,9 +56,9 @@ export class WeatherSyncService {
         })
     }
 
-    async getWeatherSyncDelta(weatherSyncParams: WeatherSyncDeltaParamsDto) {
+    async getWeatherSyncDelta(weatherSyncParams: GetWeatherSyncDeltaParamsDto) {
         const { areaCode, fromClimate, toClimate } = weatherSyncParams
-        const records = await this.prisma.weatherSync.findMany({
+        const records = await this.prisma.weatherSyncRecord.findMany({
             where: {
                 areaCode,
                 climate: {
