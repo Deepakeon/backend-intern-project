@@ -13,7 +13,3 @@ CREATE TABLE "weather_sync_records" (
 
     CONSTRAINT "weather_sync_records_pkey" PRIMARY KEY ("id")
 );
-
-
-ALTER TABLE "weather_sync_records" ADD CONSTRAINT "areaCode" CHECK ("areaCode" >= 100 AND "areaCode" <= 1000);
-ALTER TABLE "weather_sync_records" ADD CONSTRAINT "chancesOfRain" CHECK ("chancesOfRain" >= 0 AND "chancesOfRain" <= 100);
