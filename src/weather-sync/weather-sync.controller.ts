@@ -1,8 +1,8 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@nestjs/common';
 
 import { WeatherSyncService } from './weather-sync.service';
-import { GetWeatherSyncFilterDto, WeatherSyncDto } from './dto';
-import { GetWeatherSyncDeltaParamsDto } from './dto';
+import { GetWeatherSyncDto, CreateWeatherSyncDto } from './dto';
+import { GetWeatherSyncDeltaDto } from './dto';
 
 @Controller('weather-sync')
 export class WeatherSyncController {
@@ -10,18 +10,18 @@ export class WeatherSyncController {
     constructor(private weatherSyncService: WeatherSyncService) { }
 
     @Post('add')
-    addWeatherSync(@Body() dto: WeatherSyncDto) {
+    addWeatherSync(@Body() dto: CreateWeatherSyncDto) {
         return this.weatherSyncService.add(dto)
     }
 
     @Get()
-    getWeatherSyncRecords(@Query() filterDto: GetWeatherSyncFilterDto) {
-        return this.weatherSyncService.getWeatherSyncRecords(filterDto)
+    getWeatherSyncRecords(@Query() getWeatherSyncDto: GetWeatherSyncDto) {
+        return this.weatherSyncService.getWeatherSyncRecords(getWeatherSyncDto)
     }
 
     @Get('delta')
     @HttpCode(HttpStatus.OK)
-    getWeatherSyncDelta(@Query() weatherSyncParamsDto: GetWeatherSyncDeltaParamsDto) {
-        return this.weatherSyncService.getWeatherSyncDelta(weatherSyncParamsDto)
+    getWeatherSyncDelta(@Query() getWeatherSyncDeltaDto: GetWeatherSyncDeltaDto) {
+        return this.weatherSyncService.getWeatherSyncDelta(getWeatherSyncDeltaDto)
     }
 }

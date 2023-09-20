@@ -2,8 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { WeatherSyncRecord } from '@prisma/client';
 
 import { PrismaService } from 'src/prisma/prisma.service';
-import { GetWeatherSyncFilterDto, WeatherSyncDto } from './dto';
-import { GetWeatherSyncDeltaParamsDto } from './dto';
+import { GetWeatherSyncDto, CreateWeatherSyncDto } from './dto';
+import { GetWeatherSyncDeltaDto } from './dto';
 
 @Injectable()
 export class WeatherSyncService {
@@ -35,7 +35,7 @@ export class WeatherSyncService {
         }
     }
 
-    async add(dto: WeatherSyncDto) {
+    async add(dto: CreateWeatherSyncDto) {
         const weather = await this.prisma.weatherSyncRecord.create({
             data: dto
         })
@@ -43,8 +43,8 @@ export class WeatherSyncService {
         return weather
     }
 
-    async getWeatherSyncRecords(filterDto: GetWeatherSyncFilterDto) {
-        const { areaCode, climate, temperature, humidity, chancesOfRain } = filterDto
+    async getWeatherSyncRecords(getWeatherSyncDto: GetWeatherSyncDto) {
+        const { areaCode, climate, temperature, humidity, chancesOfRain } = getWeatherSyncDto
         return await this.prisma.weatherSyncRecord.findMany({
             where: {
                 areaCode,
@@ -56,8 +56,8 @@ export class WeatherSyncService {
         })
     }
 
-    async getWeatherSyncDelta(weatherSyncParamsDto: GetWeatherSyncDeltaParamsDto) {
-        const { areaCode, fromClimate, toClimate } = weatherSyncParamsDto
+    async getWeatherSyncDelta(getWeatherSyncDeltaDto: GetWeatherSyncDeltaDto) {
+        const { areaCode, fromClimate, toClimate } = getWeatherSyncDeltaDto
         const records = await this.prisma.weatherSyncRecord.findMany({
             where: {
                 areaCode,
